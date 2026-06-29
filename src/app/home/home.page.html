@@ -1,20 +1,61 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Blank
+    🌭 CompletoRank
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <div @fadeIn>
+
+<h2>
+Bienvenido {{ usuario }}
+</h2>
+
+</div>
+
+  <mat-card>
+
+  <mat-card-header>
+    <mat-card-title>
+      Completo destacado
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    Dominó lidera el ranking esta semana.
+  </mat-card-content>
+
+  </mat-card>
+
+  <ion-button
+    expand="block"
+    (click)="irLocales()">
+
+    Ver Locales
+
+  </ion-button>
+
+  <br>
+
+  <ion-button
+    expand="block"
+    (click)="irResena()">
+
+    Crear Reseña
+
+  </ion-button>
+
+  <br>
+
+  <ion-button
+    expand="block"
+    (click)="irRanking()">
+
+    Ver Ranking
+
+  </ion-button>
+
 </ion-content>

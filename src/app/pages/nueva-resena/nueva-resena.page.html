@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nueva Reseña</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-input
+    label="Nombre del local"
+    labelPlacement="floating"
+    fill="outline">
+  </ion-input>
+
+  <br>
+
+  <h2>
+    Puntaje General: {{ promedio.toFixed(1) }}
+  </h2>
+
+  <p>Calidad del Pan</p>
+
+  <ion-range
+    min="1"
+    max="10"
+    [(ngModel)]="pan">
+  </ion-range>
+
+  <p>Frescura de Verduras</p>
+
+  <ion-range
+    min="1"
+    max="10"
+    [(ngModel)]="verduras">
+  </ion-range>
+
+  <p>Calidad de Salsas</p>
+
+  <ion-range
+    min="1"
+    max="10"
+    [(ngModel)]="salsas">
+  </ion-range>
+
+  <p>Creatividad</p>
+
+  <ion-range
+    min="1"
+    max="10"
+    [(ngModel)]="creatividad">
+  </ion-range>
+
+  <p>Atención</p>
+
+  <ion-range
+    min="1"
+    max="10"
+    [(ngModel)]="atencion">
+  </ion-range>
+
+  <br>
+
+  <ion-textarea
+    label="Comentario"
+    labelPlacement="floating"
+    fill="outline">
+  </ion-textarea>
+
+  <br>
+
+  <ion-button expand="block">
+    Publicar Reseña
+  </ion-button>
+
+  <br>
+
+  <ion-button
+    expand="block"
+    routerLink="/home">
+
+    Volver al Inicio
+
+  </ion-button>
+
+</ion-content>
