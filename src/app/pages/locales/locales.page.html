@@ -1,16 +1,32 @@
-<div @slideIn>
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Ranking de Locales</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-list>
+<ion-content class="ion-padding">
+  
+  <div class="ion-text-center ion-padding" *ngIf="cargando">
+    <ion-spinner color="primary"></ion-spinner>
+    <p>Buscando las mejores completadas...</p>
+  </div>
 
-    <ion-item *ngFor="let local of locales">
-
+  <ion-list *ngIf="!cargando && locales.length > 0">
+    <ion-item *ngFor="let local of locales" button [routerLink]="['/ranking']">
+      <ion-avatar slot="start">
+        <img [src]="local.imagen" alt="Foto de {{ local.nombre }}" />
+      </ion-avatar>
       <ion-label>
         <h2>{{ local.nombre }}</h2>
-        <p>⭐ {{ local.nota }}</p>
+        <p>{{ local.direccion }}, {{ local.comuna }}</p>
       </ion-label>
-
+      <ion-badge color="danger" slot="end">{{ local.puntuacion }} ⭐</ion-badge>
     </ion-item>
-
   </ion-list>
 
-</div>
+  <div class="ion-text-center ion-padding" *ngIf="!cargando && locales.length === 0">
+    <ion-icon name="alert-circle-outline" size="large" color="medium"></ion-icon>
+    <p>No se encontraron locales. Conéctate a internet para descargar la lista.</p>
+  </div>
+
+</ion-content>

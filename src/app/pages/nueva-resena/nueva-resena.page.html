@@ -1,85 +1,61 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Nueva Reseña</ion-title>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/locales"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Evaluar Completo</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  
+  <div class="ion-text-center ion-margin-bottom">
+    <h3>¿Qué te pareció?</h3>
+    <p>Comparte tu experiencia y ayuda a crear el ranking definitivo.</p>
+  </div>
 
-  <ion-input
-    label="Nombre del local"
-    labelPlacement="floating"
-    fill="outline">
-  </ion-input>
+  <ion-list>
+    <ion-item>
+      <ion-label>Puntuación</ion-label>
+      <ion-select [(ngModel)]="puntuacion" interface="popover">
+        <ion-select-option [value]="5">5 - ¡Una obra de arte! 🌟</ion-select-option>
+        <ion-select-option [value]="4">4 - Muy bueno</ion-select-option>
+        <ion-select-option [value]="3">3 - Salva</ion-select-option>
+        <ion-select-option [value]="2">2 - Decepcionante</ion-select-option>
+        <ion-select-option [value]="1">1 - Nunca más</ion-select-option>
+      </ion-select>
+    </ion-item>
 
-  <br>
+    <ion-item>
+      <ion-label position="stacked">Tu reseña</ion-label>
+      <ion-textarea 
+        [(ngModel)]="comentario" 
+        placeholder="Ej: El pan estaba crujiente y la palta en su punto..." 
+        rows="4">
+      </ion-textarea>
+    </ion-item>
+  </ion-list>
 
-  <h2>
-    Puntaje General: {{ promedio.toFixed(1) }}
-  </h2>
-
-  <p>Calidad del Pan</p>
-
-  <ion-range
-    min="1"
-    max="10"
-    [(ngModel)]="pan">
-  </ion-range>
-
-  <p>Frescura de Verduras</p>
-
-  <ion-range
-    min="1"
-    max="10"
-    [(ngModel)]="verduras">
-  </ion-range>
-
-  <p>Calidad de Salsas</p>
-
-  <ion-range
-    min="1"
-    max="10"
-    [(ngModel)]="salsas">
-  </ion-range>
-
-  <p>Creatividad</p>
-
-  <ion-range
-    min="1"
-    max="10"
-    [(ngModel)]="creatividad">
-  </ion-range>
-
-  <p>Atención</p>
-
-  <ion-range
-    min="1"
-    max="10"
-    [(ngModel)]="atencion">
-  </ion-range>
-
-  <br>
-
-  <ion-textarea
-    label="Comentario"
-    labelPlacement="floating"
-    fill="outline">
-  </ion-textarea>
-
-  <br>
-
-  <ion-button expand="block">
-    Publicar Reseña
+  <ion-button expand="block" fill="outline" class="ion-margin-top" (click)="tomarFotografia()">
+    <ion-icon name="camera-outline" slot="start"></ion-icon>
+    Tomar Fotografía
   </ion-button>
 
-  <br>
+  <ion-card *ngIf="fotoCapturada" class="ion-margin-top">
+    <img [src]="fotoCapturada" alt="Evidencia del completo" />
+    <ion-card-header>
+      <ion-card-subtitle>Foto adjunta a la reseña</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
 
-  <ion-button
-    expand="block"
-    routerLink="/home">
-
-    Volver al Inicio
-
+  <ion-button 
+    expand="block" 
+    color="success" 
+    class="ion-margin-top" 
+    (click)="guardarResena()" 
+    [disabled]="!comentario || guardando">
+    <ion-spinner *ngIf="guardando" name="crescent"></ion-spinner>
+    <span *ngIf="!guardando">Publicar Reseña</span>
   </ion-button>
 
 </ion-content>

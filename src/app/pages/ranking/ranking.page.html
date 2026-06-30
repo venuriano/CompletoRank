@@ -1,33 +1,60 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Ranking</ion-title>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/locales"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Top Completos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  
+  <div class="ion-text-center ion-padding" *ngIf="cargando">
+    <ion-spinner color="primary"></ion-spinner>
+    <p>Calculando el ranking definitivo...</p>
+  </div>
 
-  <ion-list>
+  <div *ngIf="!cargando">
+    <ion-list>
+      <ion-list-header>
+        <ion-label><h2>El Podio 🏆</h2></ion-label>
+      </ion-list-header>
 
-    <ion-item *ngFor="let local of ranking">
+      <ion-item *ngFor="let local of localesRankeados; let i = index">
+        <ion-avatar slot="start">
+          <img [src]="local.imagen" alt="Foto de {{ local.nombre }}" />
+        </ion-avatar>
+        <ion-label>
+          <h2>
+            <span *ngIf="i === 0">🥇 </span>
+            <span *ngIf="i === 1">🥈 </span>
+            <span *ngIf="i === 2">🥉 </span>
+            <span *ngIf="i > 2">{{ i + 1 }}. </span>
+            {{ local.nombre }}
+          </h2>
+          <p>{{ local.comuna }}</p>
+        </ion-label>
+        <ion-badge [color]="i === 0 ? 'warning' : 'medium'" slot="end">
+          {{ local.puntuacion }} ⭐
+        </ion-badge>
+      </ion-item>
+    </ion-list>
 
-      <ion-label>
-        {{ local.nombre }}
-      </ion-label>
+    <ion-list class="ion-margin-top" *ngIf="resenasRecientes.length > 0">
+      <ion-list-header>
+        <ion-label><h2>Tus Reseñas Locales 📝</h2></ion-label>
+      </ion-list-header>
 
-      <ion-badge color="success">
-        {{ local.nota }}
-      </ion-badge>
-
-    </ion-item>
-
-  </ion-list>
+      <ion-card *ngFor="let resena of resenasRecientes">
+        <img *ngIf="resena.imagen" [src]="resena.imagen" alt="Evidencia fotográfica" />
+        <ion-card-header>
+          <ion-card-subtitle>Le diste un: {{ resena.puntuacion }} ⭐</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          "{{ resena.comentario }}"
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
 
 </ion-content>
-
-<ion-button
-expand="block"
-routerLink="/home">
-
-Volver al Inicio
-
-</ion-button>

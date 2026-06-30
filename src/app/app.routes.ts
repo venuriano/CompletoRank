@@ -1,13 +1,10 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },
-  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -16,14 +13,17 @@ export const routes: Routes = [
   },
   {
     path: 'locales',
-    loadComponent: () => import('./pages/locales/locales.page').then( m => m.LocalesPage)
-  },
-  {
-    path: 'nueva-resena',
-    loadComponent: () => import('./pages/nueva-resena/nueva-resena.page').then( m => m.NuevaResenaPage)
+    loadComponent: () => import('./pages/locales/locales.page').then( m => m.LocalesPage),
+    canActivate: [AuthGuard] // RUTA PROTEGIDA
   },
   {
     path: 'ranking',
-    loadComponent: () => import('./pages/ranking/ranking.page').then( m => m.RankingPage)
+    loadComponent: () => import('./pages/ranking/ranking.page').then( m => m.RankingPage),
+    canActivate: [AuthGuard] // RUTA PROTEGIDA
   },
+  {
+    path: 'nueva-resena',
+    loadComponent: () => import('./pages/nueva-resena/nueva-resena.page').then( m => m.NuevaResenaPage),
+    canActivate: [AuthGuard] // RUTA PROTEGIDA
+  }
 ];

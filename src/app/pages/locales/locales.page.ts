@@ -1,65 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import {
-  trigger,
-  transition,
-  style,
-  animate
-} from '@angular/animations';
-
-import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonSearchbar,
-  IonList,
-  IonItem,
-  IonLabel
-} from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { ApiService } from '../../services/api';
+import { Local } from '../../interfaces/local.interface';
 
 @Component({
   selector: 'app-locales',
   templateUrl: './locales.page.html',
   styleUrls: ['./locales.page.scss'],
   standalone: true,
-
-  imports: [
-    CommonModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonSearchbar,
-    IonList,
-    IonItem,
-    IonLabel
-  ],
-
-  animations: [
-    trigger('slideIn', [
-      transition(':enter', [
-        style({
-          transform: 'translateX(100%)'
-        }),
-        animate(
-          '600ms ease-out',
-          style({
-            transform: 'translateX(0)'
-          })
-        )
-      ])
-    ])
-  ]
+  imports: [IonicModule, CommonModule]
 })
-export class LocalesPage {
+export class LocalesPage implements OnInit {
+  locales: Local[] = [];
+  cargando: boolean = true;
 
-  locales = [
-    { nombre: 'Dominó', nota: 4.8 },
-    { nombre: 'Fuente Alemana', nota: 4.7 },
-    { nombre: 'Elkika', nota: 4.6 },
-    { nombre: 'Completería Juanito', nota: 4.5 }
-  ];
+  constructor(private apiService: ApiService) {}
 
+  ngOnInit() {
+    this.cargarDatos();
+  }
+
+  cargarDatos() {
+    this.cargando = true;
+    
+    // Cumpliendo la rúbrica: Manejo de suscripciones (.subscribe)
+    this.apiService.getLocales().subscribe({
+      next: (datosLocales: Local[]) => {
+        this.locales = datosLocales;
+        this.cargando = false;
+      },
+      error: (err) => {
+        console.error('Error crítico al cargar la vista', err);
+        this.cargando = false;
+      }
+    });
+  }
 }

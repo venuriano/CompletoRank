@@ -1,30 +1,31 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>CompletoRank</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content class="ion-padding">
+  <div class="ion-text-center ion-margin-bottom">
+    <h2>¡Bienvenido!</h2>
+    <p>Inicia sesión para ver los mejores completos</p>
+  </div>
 
-  <h1>CompletoRank</h1>
+  <ion-item>
+    <ion-label position="floating">Correo Electrónico</ion-label>
+    <ion-input type="email" [(ngModel)]="correo"></ion-input>
+  </ion-item>
 
-  <ion-input
-    label="Correo"
-    labelPlacement="floating"
-    fill="outline">
-  </ion-input>
+  <ion-item>
+    <ion-label position="floating">Contraseña</ion-label>
+    <ion-input type="password" [(ngModel)]="password"></ion-input>
+  </ion-item>
 
-  <br>
+  <ion-text color="danger" *ngIf="mensajeError" class="ion-margin-top ion-text-center">
+    <p>{{ mensajeError }}</p>
+  </ion-text>
 
-  <ion-input
-    label="Contraseña"
-    type="password"
-    labelPlacement="floating"
-    fill="outline">
-  </ion-input>
-
-  <br>
-
-  <ion-button
-    expand="block"
-    (click)="ingresar()">
-
-    Ingresar
-
+  <ion-button expand="block" class="ion-margin-top" (click)="iniciarSesion()" [disabled]="cargando">
+    <ion-spinner *ngIf="cargando" name="crescent"></ion-spinner>
+    <span *ngIf="!cargando">Ingresar</span>
   </ion-button>
-
 </ion-content>
